@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Insights on technology, leadership, and entrepreneurship by Manish Lama">
+    <title>Blog - Manish Lama</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .blog-header {
+            padding-top: 120px;
+            padding-bottom: var(--space-8);
+            text-align: center;
+            background: var(--gradient-subtle);
+        }
+
+        .blog-filters {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-8);
+        }
+
+        .filter-btn {
+            padding: var(--space-2) var(--space-4);
+            background: transparent;
+            border: 2px solid var(--text-tertiary);
+            border-radius: var(--radius-full);
+            color: var(--text-primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto var(--space-8);
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: var(--space-3) var(--space-5);
+            padding-left: var(--space-10);
+            border: 2px solid var(--text-tertiary);
+            border-radius: var(--radius-full);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: var(--text-base);
+            transition: border-color var(--transition-fast);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: var(--space-5);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Manish Lama</a>
+
+            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <header class="blog-header">
+        <div class="container">
+            <h1>Blog & Insights</h1>
+            <p style="color: var(--text-secondary); font-size: var(--text-lg); max-width: 600px; margin: 0 auto;">
+                Thoughts on technology, leadership, entrepreneurship, and building meaningful solutions
+            </p>
+        </div>
+    </header>
+
+    <!-- Blog Content -->
+    <main class="section">
+        <div class="container">
+            <!-- Search -->
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search articles...">
+            </div>
+
+            <!-- Filters -->
+            <div class="blog-filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="Technology">Technology</button>
+                <button class="filter-btn" data-category="Entrepreneurship">Entrepreneurship</button>
+                <button class="filter-btn" data-category="Leadership">Leadership</button>
+                <button class="filter-btn" data-category="Security">Security</button>
+                <button class="filter-btn" data-category="Business">Business</button>
+            </div>
+
+            <!-- Blog Grid -->
+            <div class="grid grid-3" id="all-posts">
+                <!-- Posts will be inserted here by JavaScript -->
+            </div>
+
+            <!-- No results message -->
+            <div id="no-results" style="display: none; text-align: center; padding: var(--space-12) 0;">
+                <i class="fas fa-search"
+                    style="font-size: var(--text-5xl); color: var(--text-tertiary); margin-bottom: var(--space-4);"></i>
+                <h3>No posts found</h3>
+                <p style="color: var(--text-tertiary);">Try adjusting your search or filter</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Manish Lama. All rights reserved. | Built with passion in Nepal 🇳🇵</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/blog-data.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Render all blog posts
+        function renderAllPosts(posts = blogPosts) {
+            const postsGrid = document.getElementById('all-posts');
+            const noResults = document.getElementById('no-results');
+
+            if (posts.length === 0) {
+                postsGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            postsGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            postsGrid.innerHTML = posts.map(post => `
+        <article class="card blog-card">
+          <img src="${post.image}" alt="${post.title}" class="blog-image">
+          <div class="blog-meta">
+            <span><i class="fas fa-calendar"></i> ${post.date}</span>
+            <span><i class="fas fa-tag"></i> ${post.category}</span>
+          </div>
+          <h3 class="blog-title">${post.title}</h3>
+          <p class="blog-excerpt">${post.excerpt}</p>
+          <a href="blog/${post.slug}.html" class="read-more">
+            Read More <i class="fas fa-arrow-right"></i>
+          </a>
+        </article>
+      `).join('');
+        }
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.getAttribute('data-category');
+                filterPosts();
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            filterPosts();
+        });
+
+        function filterPosts() {
+            let filtered = blogPosts;
+
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(post => post.category === currentCategory);
+            }
+
+            // Filter by search
+            if (currentSearch) {
+                filtered = filtered.filter(post =>
+                    post.title.toLowerCase().includes(currentSearch) ||
+                    post.excerpt.toLowerCase().includes(currentSearch) ||
+                    post.category.toLowerCase().includes(currentSearch)
+                );
+            }
+
+            renderAllPosts(filtered);
+        }
+
+        // Initial render
+        renderAllPosts();
+    </script>
+</body>
+
+</html>
