@@ -48,12 +48,34 @@ mobileToggle.addEventListener('click', () => {
 // Close mobile menu when clicking a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
+        closeMobileMenu();
+    });
+});
+
+// Logo click handler
+const navLogo = document.querySelector('.nav-logo');
+if (navLogo) {
+    navLogo.addEventListener('click', (e) => {
+        const href = navLogo.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            closeMobileMenu();
+        }
+    });
+}
+
+function closeMobileMenu() {
+    if (navMenu.classList.contains('active')) {
         navMenu.classList.remove('active');
         const icon = mobileToggle.querySelector('i');
         icon.classList.remove('fa-times');
         icon.classList.add('fa-bars');
-    });
-});
+    }
+}
 
 // Navbar scroll effect
 const navbar = document.getElementById('navbar');
